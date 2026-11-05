@@ -1,0 +1,165 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f3efe6;
+  --color-paper-2: #e6dfd2;
+  --color-ink: #1c1914;
+  --color-muted: #6e675c;
+  --color-line: #d8d0c2;
+  --color-ocean: #c5d5de;
+  --color-land: #e7e0d2;
+  --color-chip: #faf7f1;
+  --color-copper: #b4532a;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    min-height: 100dvh;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-copper) 28%, white);
+    color: var(--color-ink);
+  }
+}
+
+.ocean {
+  fill: var(--color-ocean);
+  cursor: grab;
+}
+
+.grat {
+  fill: none;
+  stroke: color-mix(in srgb, var(--color-ink) 16%, var(--color-ocean));
+  stroke-width: 0.6;
+  vector-effect: non-scaling-stroke;
+  pointer-events: none;
+}
+
+.country {
+  stroke: color-mix(in srgb, var(--color-ink) 28%, var(--color-paper));
+  stroke-width: 0.55;
+  vector-effect: non-scaling-stroke;
+  cursor: pointer;
+  transition: fill 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.country.is-empty {
+  fill: var(--color-land);
+}
+
+.halo,
+.picked,
+.hot {
+  fill: none;
+  pointer-events: none;
+  vector-effect: non-scaling-stroke;
+}
+
+.halo {
+  stroke: var(--color-chip);
+  stroke-width: 3.2;
+}
+
+.picked {
+  stroke: var(--color-ink);
+  stroke-width: 1.45;
+}
+
+.hot {
+  stroke: var(--color-ink);
+  stroke-width: 1.15;
+}
+
+.map-svg:active .ocean,
+.map-svg:active .country {
+  cursor: grabbing;
+}
+
+.tip {
+  position: absolute;
+  z-index: 30;
+  width: max-content;
+  max-width: 16rem;
+  pointer-events: none;
+  opacity: 0;
+  border: 1px solid var(--color-line);
+  border-radius: 0.9rem;
+  background: var(--color-chip);
+  padding: 0.55rem 0.75rem 0.65rem;
+  box-shadow: 0 12px 32px color-mix(in srgb, var(--color-ink) 12%, transparent);
+  transition: opacity 140ms ease;
+}
+
+.tip[data-show="true"] {
+  opacity: 1;
+}
+
+.float-card {
+  border: 1px solid var(--color-line);
+  border-radius: 1rem;
+  background: var(--color-chip);
+  box-shadow: 0 14px 36px color-mix(in srgb, var(--color-ink) 10%, transparent);
+}
+
+.sheet-in {
+  animation: sheet-in 240ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.chip:has(input:focus-visible) {
+  outline: 2px solid var(--color-copper);
+  outline-offset: 2px;
+}
+
+.chip:has(input:checked) {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .country,
+  .tip {
+    transition: none;
+  }
+
+  .sheet-in {
+    animation: none;
+  }
+}
