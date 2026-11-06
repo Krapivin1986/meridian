@@ -22,3 +22,7 @@ npm run typecheck
 npm test
 npm run build
 ```
+
+## Публикация
+
+Сборка рассчитана на Vercel и Nitro: `npm run build` кладёт результат в `.vercel/output`. В [vercel.json](vercel.json) отключён автодетект Vite, чтобы деплой не искал статический `dist` и не отдавал пустую страницу.
