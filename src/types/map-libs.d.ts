@@ -16,7 +16,7 @@ declare module "d3-geo" {
 }
 
 declare module "d3-selection" {
-  export interface Selection<GElement extends Element> {
+  export interface Selection<_GElement extends Element> {
     call<Args extends unknown[]>(
       fn: (selection: this, ...args: Args) => void,
       ...args: Args
